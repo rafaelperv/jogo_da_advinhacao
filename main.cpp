@@ -1,21 +1,29 @@
-// Inclus�o das bibliotecas
+/*
+* Inclusão das bibliotecas
+* stdio: Biblioteca padrão em C
+* stdlib: Biblioteca com algumas funções usada no codigo ex: system();
+* Windows: Biblioteca que contem a função Sleep usada no codigo para simular um load
+* time: Biblioteca para manipulação de data e hora usando a função time() que pega a data atual em segundos.
+* locale: Biblioteca para a utilização de acentos da lingua portuguesa
+*/
 #include<stdio.h>
 #include<stdlib.h>
-#include<unistd.h>
 #include<Windows.h>
 #include<time.h>
 #include<locale.h>
 
-// Constantes
-#define MAX 10
+/*
+* Estruturas
+* matriz: Estrutura utilizada para criação da matriz aleatoria utilizando a função new_matriz()
+* lista: Estrutura para armazenar a lista de valores chutados pelo usuario, utilizando a função set_valores_lista
+* qtdAE: Estrutura para armazenar acertos e erros e porcentagem dos mesmos, utilizando a função teste_valores
+*/
 
-// Estrutura da matriz
 typedef struct
 {
     int matriz[3][3];
 }matriz;
 
-// Estrutura da lista
 typedef struct
 {
     int lista[9], n;
@@ -27,7 +35,10 @@ typedef struct
     float porAcerto, porErros;
 }qtdAE;
 
-// Prototipa��o fun��es
+/*
+* Prototipos das funções
+*/
+
 void menu_principal();
 void menu_ajuda();
 void menu_creditos();
@@ -39,24 +50,31 @@ void print_lista(lista umaLista);
 void teste_valores(matriz umaMatriz, lista umaLista, qtdAE *AEusuario);
 
 int main() {
-    system("Title Jogo da advinha��o");
+    system("Title Jogo da advinhação");
     setlocale(LC_ALL, "Portuguese");
     matriz umaMatriz;
     lista umaLista;
     qtdAE AEusuario;
     int op = 0;
 
-    // Setando os valores das variaveis dentro da estrutura da variavel AEusuario para 0
+    // Setando os valores das variaveis da estrutura AEusuario para 0
     AEusuario.acertos = 0;
     AEusuario.erros = 0;
     AEusuario.porAcerto = 0.0;
     AEusuario.porErros = 0.0;
 
+    /*
+    * Laço principal da aplicação
+    * 1: Inicia jogo
+    * 2: Apresentar menu de ajuda
+    * 3: Apresentar menu de creditos
+    * 0: Sair da aplicação
+    */
     do
     {
         system("cls");
         menu_principal();
-        printf("\nDigite uma op��o: ");
+        printf("\nDigite uma opção: ");
         scanf("%d", &op);
         switch(op)
         {
@@ -94,7 +112,7 @@ int main() {
                 system("pause");
                 break;
             default:
-                printf("\nOp��o INVALIDA... Digite uma op��o VALIDA\n");
+                printf("\nOpção INVALIDA... Digite uma opção VALIDA\n");
                 puts("");
                 system("pause");
         }
@@ -105,48 +123,64 @@ int main() {
     return 0;
 }
 
+/*
+* Função criada como menu principal da aplicação
+*/
+
 void menu_principal()
 {
-    printf("################################################################################");
-    printf("#                                                                              #");
-    printf("#\tOla, bem vindo!                                                        #");
-    printf("#\tEscolha uma op��o                                                      #");
-    printf("#                                                                              #");
-    printf("#                                                                              #");
-    printf("#\t1 - Iniciar Jogo                                                       #");
-    printf("#\t2 - Ajuda                                                              #");
-    printf("#\t3 - Creditos                                                           #");
-    printf("#\t0 - Sair                                                               #");
-    printf("#                                                                              #");
-    printf("################################################################################");
+    printf("#########################################################################");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\tOla, bem vindo!\t\t\t\t\t\t\t#");
+    printf("\n#\tEscolha uma opção\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\t1 - Iniciar Jogo\t\t\t\t\t\t#");
+    printf("\n#\t2 - Ajuda\t\t\t\t\t\t\t#");
+    printf("\n#\t3 - Creditos\t\t\t\t\t\t\t#");
+    printf("\n#\t0 - Sair\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#########################################################################");
 }
+
+/*
+* Função criada como menu de ajuda para o usuario
+*/
 
 void menu_ajuda()
 {
-    printf("################################################################################");
-    printf("#                                                                              #");
-    printf("#\tBem vindo!                                                             #");
-    printf("#\tComo jogar:                                                            #");
-    printf("#\tInsira numeros de 1 a 9                                                #");
-    printf("#\tEm seguida o programa vai te dizer quantos numeros voc� acertou        #");
-    printf("#\tBoa Sorte!                                                             #");
-    printf("#                                                                              #");
-    printf("################################################################################");
+    printf("#########################################################################");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\tBem vindo!\t\t\t\t\t\t\t#");
+    printf("\n#\tComo jogar:\t\t\t\t\t\t\t#");
+    printf("\n#\tInsira numeros de 1 a 9\t\t\t\t\t\t#");
+    printf("\n#\tEm seguida o programa vai te dizer quantos numeros você acertou#");
+    printf("\n#\tBoa Sorte!\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#########################################################################");
 }
+
+/*
+* Função criada como menu de apresentação dos creditos
+*/
 
 void menu_creditos()
 {
-    printf("################################################################################");
-    printf("#                                                                              #");
-    printf("#                                                                              #");
-    printf("#                                                                              #");
-    printf("#\tCriado por: Rafael Vicente                                             #");
-    printf("#                                                                              #");
-    printf("#                                                                              #");
-    printf("#                                                                              #");
-    printf("################################################################################");
+    printf("#########################################################################");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\tCriado por: Rafael Vicente\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#\t\t\t\t\t\t\t\t\t#");
+    printf("\n#########################################################################");
 }
 
+/*
+* Função utilizada para verificação dos valores contidos no vetor.
+* Caso igual a um valor contido no vetor a função retorna o valor True para a função chamadora.
+*/
 bool pesquisaNum(int valores[], int tamanho, int valor)
 {
     int i;
@@ -160,6 +194,11 @@ bool pesquisaNum(int valores[], int tamanho, int valor)
     }
     return false;
 }
+
+/*
+* Função para a criação da matriz utilizando valores da data do SO convertida em segundos.
+* A função faz o armazenamento a principio em um vetor auxiliar para logo depois das verificações armazenar na matriz final.
+*/
 
 void new_matriz(matriz *umaMatriz)
 {
@@ -185,6 +224,10 @@ void new_matriz(matriz *umaMatriz)
     }
 }
 
+/*
+* Função utilizada para imprimir a matriz.
+* A função utiliza de dois laços for para a impressão da matriz.
+*/
 void print_matriz(matriz umaMatriz)
 {
     int i, j;
@@ -201,6 +244,11 @@ void print_matriz(matriz umaMatriz)
     }
 }
 
+/*
+* Função utilizada para armazenar os valores inseridos pelo usuario.
+* A função utiliza a estrutura lista para ser armazenado os valores inseridos atravez de um laço for.
+*/
+
 void set_valores_lista(lista *umaLista)
 {
     int i;
@@ -215,6 +263,11 @@ void set_valores_lista(lista *umaLista)
     }
 }
 
+/*
+* Função utilizada para imprimir a lista de chutes do usuario.
+* A função utiliza de um laço for para a impressão da lista de chutes.
+*/
+
 void print_lista(lista umaLista)
 {
     int i;
@@ -224,6 +277,14 @@ void print_lista(lista umaLista)
         printf("\t%d ", umaLista.lista[i]);
     }
 }
+
+/*
+* Função para comparação dos valores digitados pelo usuario com os valores contidos na matriz criada aleatoriamente.
+* A função utiliza a principio de dois laços for para percorrer sobre a matriz e utiliza uma variavel auxiliar chamada cont para percorrer a lista do usuario.
+* Essas comparações são armazenadas nas variaveis da estrutura qtdAE AEusuario.
+* Acrescentando +1 a cada vez que encontra um acerto ou um erro.
+* A função finaliza convertendo os valores de acertos e erros para float para os calculos finais, e assim calculando a porcentagem de acertos e de erros.
+*/
 
 void teste_valores(matriz umaMatriz, lista umaLista, qtdAE *AEusuario)
 {
