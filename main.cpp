@@ -8,9 +8,19 @@
 */
 #include<stdio.h>
 #include<stdlib.h>
-#include<Windows.h>
-#include<time.h>
 #include<locale.h>
+
+#ifdef WIN32
+  #define pause system("pause")
+  #define clean system("cls")
+  #include<Windows.h>
+  #include<time.h>
+#else
+  #include <unistd.h>
+  #define pause getchar();getchar() 
+  #define clean system("clear")
+  #include<time.h>
+#endif
 
 /*
 * Estruturas
@@ -72,7 +82,7 @@ int main() {
     */
     do
     {
-        system("cls");
+        clean;
         menu_principal();
         printf("\nDigite uma opção: ");
         scanf("%d", &op);
@@ -80,41 +90,39 @@ int main() {
         {
             case 1:
                 printf("\n\tIniciando jogo...\n\n");
-                Sleep(5000);
-                system("cls");
+                clean;
                 new_matriz(&umaMatriz);
                 set_valores_lista(&umaLista);
 
-                system("cls");
+                clean;
                 print_matriz(umaMatriz);
                 print_lista(umaLista);
                 teste_valores(umaMatriz, umaLista, &AEusuario);
                 printf("\nQtd Acertos: %d - Qtd Erros: %d \nPorcentagem de Acertos: %.0f%% - Porcentagem de Erros: %.0f%%\n\n",
                         AEusuario.acertos, AEusuario.erros, AEusuario.porAcerto, AEusuario.porErros);
-                system("pause");
+                pause;
                 break;
             case 2:
-                system("cls");
+                clean;
                 menu_ajuda();
                 puts("");
-                system("pause");
+                pause;
                 break;
             case 3:
-                system("cls");
+                clean;
                 menu_creditos();
-                puts("");
-                system("pause");
+                pause;
                 break;
             case 0:
-                system("cls");
+                clean;
                 printf("\nObrigado por jogar!");
                 puts("\n");
-                system("pause");
+                pause;
                 break;
             default:
                 printf("\nOpção INVALIDA... Digite uma opção VALIDA\n");
                 puts("");
-                system("pause");
+                pause;
         }
 
     }while(op != 0);
@@ -202,7 +210,7 @@ bool pesquisaNum(int valores[], int tamanho, int valor)
 
 void new_matriz(matriz *umaMatriz)
 {
-    int i, j, aux_matriz[9], aux = 0, cont = 0;
+    int i, aux_matriz[9], aux = 0, cont = 0;
     srand(time(NULL));
     for(i = 0; i < 9; i++)
     {
